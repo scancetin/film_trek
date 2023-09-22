@@ -9,16 +9,18 @@ class HomeAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.orangeAccent,
-      child: ListTile(
-        contentPadding: EdgeInsets.symmetric(horizontal: 16),
-        leading: CircleAvatar(child: Icon(Icons.movie_filter)),
-        title: Text(
-          "Film Trek",
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      child: Container(
+        color: Colors.orangeAccent,
+        child: ListTile(
+          leading: CircleAvatar(child: Icon(Icons.movie_filter)),
+          title: Text(
+            "Film Trek",
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+          ),
+          trailing: IconButton(onPressed: () {}, icon: Icon(Icons.favorite)),
         ),
-        trailing: IconButton(onPressed: () {}, icon: Icon(Icons.favorite)),
       ),
     );
   }

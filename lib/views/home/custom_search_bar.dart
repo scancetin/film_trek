@@ -7,10 +7,10 @@ class CustomSearchBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.blue,
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 25, vertical: 8),
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      child: Container(
+        color: Colors.blue,
         child: SearchBar(
           leading: Icon(Icons.search),
           hintText: "Search a title",

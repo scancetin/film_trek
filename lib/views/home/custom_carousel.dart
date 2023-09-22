@@ -8,18 +8,22 @@ class CustomCarousel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.greenAccent,
-      child: CarouselSlider.builder(
-          options: CarouselOptions(initialPage: 1, enlargeCenterPage: true),
-          itemCount: 3,
-          itemBuilder: (context, index, realIndex) {
-            return Container(
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30), color: Colors.green),
-              child: Center(child: Text(index.toString())),
-            );
-          }),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: Container(
+        color: Colors.greenAccent,
+        child: CarouselSlider.builder(
+            options: CarouselOptions(initialPage: 1, enlargeCenterPage: true),
+            itemCount: 3,
+            itemBuilder: (context, index, realIndex) {
+              return Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30),
+                    color: Colors.green),
+                child: Center(child: Text(index.toString())),
+              );
+            }),
+      ),
     );
   }
 }
