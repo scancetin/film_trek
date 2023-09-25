@@ -3,6 +3,8 @@
 import 'package:film_trek/views/home/home.dart';
 import 'package:flutter/material.dart';
 
+import 'themes.dart';
+
 void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
@@ -12,7 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData.dark(),
+      theme: ThemeData(useMaterial3: true, colorScheme: darkColorScheme),
       title: 'Material App',
       home: Home(),
     );
