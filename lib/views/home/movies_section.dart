@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, sized_box_for_whitespace, prefer_const_literals_to_create_immutables
 
-import 'package:film_trek/constants.dart';
 import 'package:film_trek/themes.dart';
 import 'package:flutter/material.dart';
 

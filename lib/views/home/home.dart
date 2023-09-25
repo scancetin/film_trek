@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
-import 'package:film_trek/constants.dart';
 import 'package:film_trek/views/home/custom_carousel.dart';
 import 'package:film_trek/views/home/custom_search_bar.dart';
 import 'package:film_trek/views/home/home_app_bar.dart';
