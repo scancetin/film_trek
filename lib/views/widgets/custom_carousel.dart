@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_unnecessary_containers, prefer_const_constructors
-
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:film_trek/bloc/movie_list_bloc/movie_list_bloc.dart';
 import 'package:film_trek/models/movie.dart';
@@ -23,7 +21,7 @@ class CustomCarousel extends StatelessWidget {
                   color: Colors.black54,
                 ),
                 child: state is MovieListLoading
-                    ? Center(child: CircularProgressIndicator())
+                    ? const Center(child: CircularProgressIndicator())
                     : _buildCarouselItem(index));
           }),
     );

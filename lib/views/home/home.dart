@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
 import 'package:film_trek/bloc/movie_list_bloc/movie_list_bloc.dart';
 import 'package:film_trek/views/widgets/custom_carousel.dart';
 import 'package:film_trek/views/widgets/custom_search_bar.dart';
@@ -17,15 +15,15 @@ class Home extends StatelessWidget {
       body: BlocBuilder<MovieListBloc, MovieListState>(
         builder: (context, state) {
           if (state is MovieListInitial) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           } else if (state is MovieListLoaded || state is MovieListLoading) {
             return SafeArea(
               bottom: false,
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    HomeAppBar(),
-                    CustomSearchBar(),
+                    const HomeAppBar(),
+                    const CustomSearchBar(),
                     CustomCarousel(state: state),
                     MoviesSection(state: state),
                   ],
@@ -33,7 +31,7 @@ class Home extends StatelessWidget {
               ),
             );
           } else {
-            return Center(child: Text("Error"));
+            return const Center(child: Text("Error"));
           }
         },
       ),

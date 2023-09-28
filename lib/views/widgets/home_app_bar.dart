@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:film_trek/utils/constants.dart';
 import 'package:flutter/material.dart';
 
@@ -9,16 +7,16 @@ class HomeAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 10),
+      padding: const EdgeInsets.symmetric(vertical: 10),
       child: ListTile(
-        leading: CircleAvatar(child: Icon(Icons.movie_filter)),
-        title: Text(
+        leading: const CircleAvatar(child: Icon(Icons.movie_filter)),
+        title: const Text(
           "Film Trek",
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
         ),
         trailing: IconButton(
           onPressed: () {},
-          icon: Icon(
+          icon: const Icon(
             Icons.favorite,
             color: AppColors.favoriteColor,
           ),
