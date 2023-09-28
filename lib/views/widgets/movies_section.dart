@@ -57,7 +57,8 @@ class _MoviesSectionState extends State<MoviesSection> {
                 return GestureDetector(
                   onTap: () async {
                     MovieDetailResponse movie = await repo.getMovieDetail(238);
-                    MovieResponse movieList = await repo.getPlayingMovies();
+                    MovieResponse movieList =
+                        await repo.getMoviesByName(name: "");
                     print(movie.movieDetail.genres);
                     print(movieList.movies.first.title);
                     print("movies get worked");
@@ -98,7 +99,7 @@ class _MoviesSectionState extends State<MoviesSection> {
             padding: EdgeInsets.only(bottom: 5),
             height: 250,
             child: FutureBuilder(
-              future: MovieRepository().getPlayingMovies(),
+              future: MovieRepository().getMoviesByName(name: ""),
               builder: (context, snapshot) {
                 final List<Movie>? movies = snapshot.data?.movies;
                 return ListView.builder(
