@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:film_trek/constants.dart';
 import 'package:flutter/material.dart';
 
 class CustomSearchBar extends StatelessWidget {
@@ -13,13 +12,10 @@ class CustomSearchBar extends StatelessWidget {
       child: SearchBar(
         padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
             EdgeInsets.only(left: 16)),
-        leading: Icon(
-          Icons.search,
-          color: AppColors.hintColor,
-        ),
+        leading: Icon(Icons.search),
         hintText: "Search a title",
         hintStyle: MaterialStateProperty.all<TextStyle>(
-            TextStyle(color: AppColors.hintColor)),
+            TextStyle(color: Theme.of(context).hintColor)),
       ),
     );
   }

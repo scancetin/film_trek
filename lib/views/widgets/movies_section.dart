@@ -1,13 +1,22 @@
 // ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, sized_box_for_whitespace, prefer_const_literals_to_create_immutables
 
-import 'package:film_trek/themes.dart';
+import 'package:film_trek/models/movie_response.dart';
+import 'package:film_trek/repository/repository.dart';
+import 'package:film_trek/style/themes.dart';
 import 'package:flutter/material.dart';
 
-class MoviesSection extends StatelessWidget {
+class MoviesSection extends StatefulWidget {
   const MoviesSection({super.key});
 
   @override
+  State<MoviesSection> createState() => _MoviesSectionState();
+}
+
+class _MoviesSectionState extends State<MoviesSection> {
+  @override
   Widget build(BuildContext context) {
+    final MovieRepository repo = MovieRepository();
+
     final List<String> mockCategories = [
       "All",
       "Horror",
@@ -20,7 +29,6 @@ class MoviesSection extends StatelessWidget {
       "Romance",
       "Documentary",
     ];
-
     return Padding(
       padding: const EdgeInsets.only(left: 15, top: 10),
       child: Column(
@@ -41,7 +49,11 @@ class MoviesSection extends StatelessWidget {
               itemCount: mockCategories.length,
               itemBuilder: (context, index) {
                 return GestureDetector(
-                  onTap: () {},
+                  onTap: () async {
+                    MovieResponse movies = await repo.getMovies();
+                    print(movies.movies[0].title);
+                    print("movies get worked");
+                  },
                   child: Card(
                     // color: darkColorScheme.inversePrimary,
                     child: Container(
@@ -68,7 +80,11 @@ class MoviesSection extends StatelessWidget {
                   child: Text(
                     "See All",
                     style:
-                        TextStyle(color: darkColorScheme.primary, fontSize: 15),
+                        // TextStyle(
+                        // color: Theme.of(context).hintColor, fontSize: 15),
+                        TextStyle(
+                            color: darkColorScheme.inversePrimary,
+                            fontSize: 15),
                   ),
                 ),
               ],
@@ -79,7 +95,7 @@ class MoviesSection extends StatelessWidget {
             height: 250,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
-              itemCount: 5,
+              itemCount: 20,
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: () {},

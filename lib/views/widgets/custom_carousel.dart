@@ -1,7 +1,6 @@
 // ignore_for_file: avoid_unnecessary_containers, prefer_const_constructors
 
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:film_trek/constants.dart';
 import 'package:flutter/material.dart';
 
 class CustomCarousel extends StatelessWidget {
@@ -14,11 +13,11 @@ class CustomCarousel extends StatelessWidget {
       child: CarouselSlider.builder(
           options: CarouselOptions(enlargeCenterPage: true),
           itemCount: 3,
-          itemBuilder: (context, index, realIndex) {
+          itemBuilder: (context, index, _) {
             return Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(30),
-                color: AppColors.hintColor,
+                color: Colors.black54,
               ),
               child: Center(child: Text(index.toString())),
             );

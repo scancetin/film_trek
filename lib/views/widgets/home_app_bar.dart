@@ -1,6 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:film_trek/constants.dart';
+import 'package:film_trek/utils/constants.dart';
 import 'package:flutter/material.dart';
 
 class HomeAppBar extends StatelessWidget {
