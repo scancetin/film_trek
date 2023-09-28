@@ -27,7 +27,7 @@ class Home extends StatelessWidget {
                     HomeAppBar(),
                     CustomSearchBar(),
                     CustomCarousel(state: state),
-                    MoviesSection(),
+                    MoviesSection(state: state),
                   ],
                 ),
               ),

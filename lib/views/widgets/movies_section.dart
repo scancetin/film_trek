@@ -1,24 +1,17 @@
 // ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, sized_box_for_whitespace, prefer_const_literals_to_create_immutables
 
+import 'package:film_trek/bloc/movie_list_bloc/movie_list_bloc.dart';
 import 'package:film_trek/models/movie.dart';
-import 'package:film_trek/models/movie_detail_response.dart';
-import 'package:film_trek/models/movie_response.dart';
 import 'package:film_trek/repository/repository.dart';
 import 'package:film_trek/style/themes.dart';
 import 'package:flutter/material.dart';
 
-class MoviesSection extends StatefulWidget {
-  const MoviesSection({super.key});
+class MoviesSection extends StatelessWidget {
+  final MovieListState state;
+  const MoviesSection({super.key, required this.state});
 
-  @override
-  State<MoviesSection> createState() => _MoviesSectionState();
-}
-
-class _MoviesSectionState extends State<MoviesSection> {
   @override
   Widget build(BuildContext context) {
-    final MovieRepository repo = MovieRepository();
-
     final List<String> mockCategories = [
       "Popular",
       "Trending",
@@ -46,16 +39,8 @@ class _MoviesSectionState extends State<MoviesSection> {
               itemCount: mockCategories.length,
               itemBuilder: (context, index) {
                 return GestureDetector(
-                  onTap: () async {
-                    MovieDetailResponse movie = await repo.getMovieDetail(238);
-                    MovieResponse movieList =
-                        await repo.getMoviesByName(name: "");
-                    print(movie.movieDetail.genres);
-                    print(movieList.movies.first.title);
-                    print("movies get worked");
-                  },
+                  onTap: () async {},
                   child: Card(
-                    // color: darkColorScheme.inversePrimary,
                     child: Container(
                       width: 100,
                       alignment: Alignment.center,
@@ -102,7 +87,9 @@ class _MoviesSectionState extends State<MoviesSection> {
                       child: Card(
                         child: Container(
                           width: 200,
-                          child: Text(movies![index].title),
+                          child: state is MovieListLoading
+                              ? Center(child: CircularProgressIndicator())
+                              : _buildCardItem(movies, index),
                         ),
                       ),
                     );
@@ -114,5 +101,11 @@ class _MoviesSectionState extends State<MoviesSection> {
         ],
       ),
     );
+  }
+
+  Widget _buildCardItem(List<Movie>? movies, int index) {
+    final Movie movie = (state as MovieListLoaded).movies.movies[index];
+
+    return Image.network("https://image.tmdb.org/t/p/original/${movie.poster}");
   }
 }

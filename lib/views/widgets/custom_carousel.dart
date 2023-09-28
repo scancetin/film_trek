@@ -1,9 +1,9 @@
-// ignore_for_file: avoid_unnecessary_containers, prefer_const_constructors, prefer_interpolation_to_compose_strings
+// ignore_for_file: avoid_unnecessary_containers, prefer_const_constructors
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:film_trek/bloc/movie_list_bloc/movie_list_bloc.dart';
+import 'package:film_trek/models/movie.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CustomCarousel extends StatelessWidget {
   final MovieListState state;
@@ -30,8 +30,9 @@ class CustomCarousel extends StatelessWidget {
   }
 
   Widget _buildCarouselItem(int index) {
-    final _state = state as MovieListLoaded;
-    return Image.network("https://image.tmdb.org/t/p/original/" +
-        _state.movies.movies[index].backPoster);
+    final Movie movie = (state as MovieListLoaded).movies.movies[index];
+
+    return Image.network(
+        "https://image.tmdb.org/t/p/original/${movie.backPoster}");
   }
 }
