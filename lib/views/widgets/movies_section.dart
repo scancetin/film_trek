@@ -20,16 +20,20 @@ class _MoviesSectionState extends State<MoviesSection> {
     final MovieRepository repo = MovieRepository();
 
     final List<String> mockCategories = [
-      "All",
-      "Horror",
-      "Sci-Fi",
-      "History",
-      "Comedy",
-      "Family",
-      "Animation",
-      "Drama",
-      "Romance",
-      "Documentary",
+      "Popular",
+      "Top Rated",
+      "In Theatres",
+      "Upcoming",
+      // "All",
+      // "Horror",
+      // "Sci-Fi",
+      // "History",
+      // "Comedy",
+      // "Family",
+      // "Animation",
+      // "Drama",
+      // "Romance",
+      // "Documentary",
     ];
     return Padding(
       padding: const EdgeInsets.only(left: 15, top: 10),
@@ -53,7 +57,7 @@ class _MoviesSectionState extends State<MoviesSection> {
                 return GestureDetector(
                   onTap: () async {
                     MovieDetailResponse movie = await repo.getMovieDetail(238);
-                    MovieResponse movieList = await repo.getMovies();
+                    MovieResponse movieList = await repo.getPlayingMovies();
                     print(movie.movieDetail.genres);
                     print(movieList.movies.first.title);
                     print("movies get worked");
@@ -94,7 +98,7 @@ class _MoviesSectionState extends State<MoviesSection> {
             padding: EdgeInsets.only(bottom: 5),
             height: 250,
             child: FutureBuilder(
-              future: MovieRepository().getMovies(),
+              future: MovieRepository().getPlayingMovies(),
               builder: (context, snapshot) {
                 final List<Movie>? movies = snapshot.data?.movies;
                 return ListView.builder(

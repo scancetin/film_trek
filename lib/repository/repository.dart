@@ -8,15 +8,16 @@ class MovieRepository {
   final String apiKey = "0aea0b954d982438448f15e5e31515e8";
   static String mainUrl = "https://api.themoviedb.org/3";
   final Dio _dio = Dio();
-  var getPopularUrl = '$mainUrl/movie/top_rated';
+  var getPopularUrl = '$mainUrl/movie/popular';
+  var getTopRatedUrl = '$mainUrl/movie/top_rated';
   var getPlayingUrl = '$mainUrl/movie/now_playing';
+  var getUpcomingUrl = '$mainUrl/movie/upcoming';
   var movieUrl = "$mainUrl/movie";
 
-  Future<MovieResponse> getMovies() async {
+  Future<MovieResponse> getMovies(String url) async {
     var params = {"api_key": apiKey, "language": "en-US", "page": 1};
     try {
-      Response response =
-          await _dio.get(getPopularUrl, queryParameters: params);
+      Response response = await _dio.get(url, queryParameters: params);
       return MovieResponse.fromJson(response.data);
     } catch (error, stacktrace) {
       print("Exception occured: $error stackTrace: $stacktrace");
@@ -24,17 +25,13 @@ class MovieRepository {
     }
   }
 
-  Future<MovieResponse> getPlayingMovies() async {
-    var params = {"api_key": apiKey, "language": "en-US", "page": 1};
-    try {
-      Response response =
-          await _dio.get(getPlayingUrl, queryParameters: params);
-      return MovieResponse.fromJson(response.data);
-    } catch (error, stacktrace) {
-      print("Exception occured: $error stackTrace: $stacktrace");
-      return MovieResponse.withError("$error");
-    }
-  }
+  Future<MovieResponse> getPopularMovies() => getMovies(getPopularUrl);
+
+  Future<MovieResponse> getTopRatedMovies() => getMovies(getTopRatedUrl);
+
+  Future<MovieResponse> getPlayingMovies() => getMovies(getPlayingUrl);
+
+  Future<MovieResponse> getUpcomingMovies() => getMovies(getUpcomingUrl);
 
   Future<MovieDetailResponse> getMovieDetail(int id) async {
     var params = {"api_key": apiKey, "language": "en-US"};
