@@ -18,5 +18,28 @@ class MovieListBloc extends Bloc<MovieListEvent, MovieListState> {
         emit(MovieListError(e.toString()));
       }
     });
+    on<ChangeMovieListEvent>((event, emit) async {
+      try {
+        emit(MovieListLoading());
+        final MovieResponse movies;
+        switch (event.categoryIndex) {
+          case 0:
+            movies = await movieRepo.getPopularMovies();
+          case 1:
+            movies = await movieRepo.getTrendingMovies();
+          case 2:
+            movies = await movieRepo.getTopRatedMovies();
+          case 3:
+            movies = await movieRepo.getPlayingMovies();
+          case 4:
+            movies = await movieRepo.getUpcomingMovies();
+          default:
+            movies = await movieRepo.getPopularMovies();
+        }
+        emit(MovieListLoaded(movies));
+      } catch (e) {
+        emit(MovieListError(e.toString()));
+      }
+    });
   }
 }

@@ -7,7 +7,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'style/themes.dart';
 
 void main() {
-  // WidgetsFlutterBinding.ensureInitialized();
   runApp(MultiBlocProvider(
     providers: [
       BlocProvider(

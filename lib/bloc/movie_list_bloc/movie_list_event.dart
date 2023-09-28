@@ -8,3 +8,12 @@ sealed class MovieListEvent extends Equatable {
 }
 
 class GetMovieListEvent extends MovieListEvent {}
+
+class ChangeMovieListEvent extends MovieListEvent {
+  final int categoryIndex;
+
+  const ChangeMovieListEvent(this.categoryIndex);
+
+  @override
+  List<Object> get props => [categoryIndex];
+}

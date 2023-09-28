@@ -1,10 +1,11 @@
-// ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, sized_box_for_whitespace, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, sized_box_for_whitespace, prefer_const_literals_to_create_immutables, use_build_context_synchronously
 
 import 'package:film_trek/bloc/movie_list_bloc/movie_list_bloc.dart';
 import 'package:film_trek/models/movie.dart';
 import 'package:film_trek/repository/repository.dart';
 import 'package:film_trek/style/themes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MoviesSection extends StatelessWidget {
   final MovieListState state;
@@ -39,7 +40,11 @@ class MoviesSection extends StatelessWidget {
               itemCount: mockCategories.length,
               itemBuilder: (context, index) {
                 return GestureDetector(
-                  onTap: () async {},
+                  onTap: () async {
+                    context
+                        .read<MovieListBloc>()
+                        .add(ChangeMovieListEvent(index));
+                  },
                   child: Card(
                     child: Container(
                       width: 100,
@@ -57,7 +62,7 @@ class MoviesSection extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Most Popular",
+                  "Movies",
                   style: TextStyle(fontSize: 20),
                 ),
                 GestureDetector(
