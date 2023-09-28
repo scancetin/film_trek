@@ -1,6 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:film_trek/bloc/movie_list_bloc/movie_list_bloc.dart';
-import 'package:film_trek/models/movie.dart';
 import 'package:flutter/material.dart';
 
 class CustomCarousel extends StatelessWidget {
@@ -28,9 +27,8 @@ class CustomCarousel extends StatelessWidget {
   }
 
   Widget _buildCarouselItem(int index) {
-    final Movie movie = (state as MovieListLoaded).movies.movies[index];
-
-    return Image.network(
-        "https://image.tmdb.org/t/p/original/${movie.backPoster}");
+    final String backPoster =
+        (state as MovieListLoaded).movies.movies[index].backPoster;
+    return Image.network("https://image.tmdb.org/t/p/original/${backPoster}");
   }
 }

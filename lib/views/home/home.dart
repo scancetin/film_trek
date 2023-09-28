@@ -1,7 +1,7 @@
 import 'package:film_trek/bloc/movie_list_bloc/movie_list_bloc.dart';
 import 'package:film_trek/views/widgets/custom_carousel.dart';
 import 'package:film_trek/views/widgets/custom_search_bar.dart';
-import 'package:film_trek/views/widgets/home_app_bar.dart';
+import 'package:film_trek/views/widgets/home/home_app_bar.dart';
 import 'package:film_trek/views/widgets/movies_section.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

@@ -15,7 +15,9 @@ class HomeAppBar extends StatelessWidget {
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
         ),
         trailing: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            // todo: favorite movies page
+          },
           icon: const Icon(
             Icons.favorite,
             color: AppColors.favoriteColor,
