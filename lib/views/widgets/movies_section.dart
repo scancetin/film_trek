@@ -21,19 +21,10 @@ class _MoviesSectionState extends State<MoviesSection> {
 
     final List<String> mockCategories = [
       "Popular",
+      "Trending",
       "Top Rated",
       "In Theatres",
       "Upcoming",
-      // "All",
-      // "Horror",
-      // "Sci-Fi",
-      // "History",
-      // "Comedy",
-      // "Family",
-      // "Animation",
-      // "Drama",
-      // "Romance",
-      // "Documentary",
     ];
     return Padding(
       padding: const EdgeInsets.only(left: 15, top: 10),

@@ -32,10 +32,12 @@ class MovieRepository {
     }
   }
 
+  //! ToDo: blade%20runner
   Future<MovieResponse> getMoviesByName(
       {required String name, int page = 1}) async {
+    String movie = "blade";
     var params = {
-      "query": "pokemon",
+      "query": movie,
       "api_key": apiKey,
       "language": "en-US",
       "page": page,
@@ -44,6 +46,7 @@ class MovieRepository {
     try {
       Response response =
           await _dio.get(getMoviesByNameUrl, queryParameters: params);
+      print(response.realUri);
       return MovieResponse.fromJson(response.data);
     } catch (error, stacktrace) {
       print("Exception occured: $error stackTrace: $stacktrace");

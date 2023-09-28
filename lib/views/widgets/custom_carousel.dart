@@ -1,10 +1,13 @@
-// ignore_for_file: avoid_unnecessary_containers, prefer_const_constructors
+// ignore_for_file: avoid_unnecessary_containers, prefer_const_constructors, prefer_interpolation_to_compose_strings
 
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:film_trek/bloc/movie_list_bloc/movie_list_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CustomCarousel extends StatelessWidget {
-  const CustomCarousel({super.key});
+  final MovieListState state;
+  const CustomCarousel({super.key, required this.state});
 
   @override
   Widget build(BuildContext context) {
@@ -15,13 +18,20 @@ class CustomCarousel extends StatelessWidget {
           itemCount: 3,
           itemBuilder: (context, index, _) {
             return Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30),
-                color: Colors.black54,
-              ),
-              child: Center(child: Text(index.toString())),
-            );
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(30),
+                  color: Colors.black54,
+                ),
+                child: state is MovieListLoading
+                    ? Center(child: CircularProgressIndicator())
+                    : _buildCarouselItem(index));
           }),
     );
+  }
+
+  Widget _buildCarouselItem(int index) {
+    final _state = state as MovieListLoaded;
+    return Image.network("https://image.tmdb.org/t/p/original/" +
+        _state.movies.movies[index].backPoster);
   }
 }
