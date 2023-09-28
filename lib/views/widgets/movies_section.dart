@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, sized_box_for_whitespace, prefer_const_literals_to_create_immutables
 
+import 'package:film_trek/models/movie.dart';
+import 'package:film_trek/models/movie_detail_response.dart';
 import 'package:film_trek/models/movie_response.dart';
 import 'package:film_trek/repository/repository.dart';
 import 'package:film_trek/style/themes.dart';
@@ -50,8 +52,10 @@ class _MoviesSectionState extends State<MoviesSection> {
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: () async {
-                    MovieResponse movies = await repo.getMovies();
-                    print(movies.movies[0].title);
+                    MovieDetailResponse movie = await repo.getMovieDetail(238);
+                    MovieResponse movieList = await repo.getMovies();
+                    print(movie.movieDetail.genres);
+                    print(movieList.movies.first.title);
                     print("movies get worked");
                   },
                   child: Card(
@@ -79,12 +83,8 @@ class _MoviesSectionState extends State<MoviesSection> {
                   onTap: () {},
                   child: Text(
                     "See All",
-                    style:
-                        // TextStyle(
-                        // color: Theme.of(context).hintColor, fontSize: 15),
-                        TextStyle(
-                            color: darkColorScheme.inversePrimary,
-                            fontSize: 15),
+                    style: TextStyle(
+                        color: darkColorScheme.inversePrimary, fontSize: 15),
                   ),
                 ),
               ],
@@ -93,18 +93,24 @@ class _MoviesSectionState extends State<MoviesSection> {
           Container(
             padding: EdgeInsets.only(bottom: 5),
             height: 250,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: 20,
-              itemBuilder: (context, index) {
-                return GestureDetector(
-                  onTap: () {},
-                  child: Card(
-                    child: Container(
-                      width: 200,
-                      child: Text(index.toString()),
-                    ),
-                  ),
+            child: FutureBuilder(
+              future: MovieRepository().getMovies(),
+              builder: (context, snapshot) {
+                final List<Movie>? movies = snapshot.data?.movies;
+                return ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: movies?.length,
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                      onTap: () {},
+                      child: Card(
+                        child: Container(
+                          width: 200,
+                          child: Text(movies![index].title),
+                        ),
+                      ),
+                    );
+                  },
                 );
               },
             ),
