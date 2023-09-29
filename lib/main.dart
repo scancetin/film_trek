@@ -2,6 +2,7 @@
 
 import 'package:film_trek/bloc/movie_list_bloc/movie_list_bloc.dart';
 import 'package:film_trek/views/home/home.dart';
+import 'package:film_trek/views/home/movie_details_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'style/themes.dart';
@@ -26,7 +27,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(useMaterial3: true, colorScheme: darkColorScheme),
       title: 'Material App',
-      home: Home(),
+      // home: Home(),
+      home: MovieDetailsView(),
     );
   }
 }
