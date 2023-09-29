@@ -46,7 +46,6 @@ class MovieRepository {
     try {
       Response response =
           await _dio.get(getMoviesByNameUrl, queryParameters: params);
-      print(response.realUri);
       return MovieResponse.fromJson(response.data);
     } catch (error, stacktrace) {
       print("Exception occured: $error stackTrace: $stacktrace");
@@ -79,8 +78,8 @@ class MovieRepository {
   Future<MovieResponse> getSimilarMovies(int id) async {
     var params = {"api_key": apiKey, "language": "en-US"};
     try {
-      Response response =
-          await _dio.get("$movieUrl/$id/similar", queryParameters: params);
+      Response response = await _dio.get("$movieUrl/$id/recommendations",
+          queryParameters: params);
       return MovieResponse.fromJson(response.data);
     } catch (error, stacktrace) {
       print("Exception occured: $error stackTrace: $stacktrace");

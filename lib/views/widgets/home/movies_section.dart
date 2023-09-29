@@ -1,4 +1,5 @@
 import 'package:film_trek/bloc/movie_list_bloc/movie_list_bloc.dart';
+import 'package:film_trek/models/movie.dart';
 import 'package:film_trek/style/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -45,6 +46,10 @@ class MoviesSection extends StatelessWidget {
                   child: Card(
                     child: Container(
                       width: 100,
+                      color: state is MovieListLoaded &&
+                              (state as MovieListLoaded).categoryIndex == index
+                          ? Colors.amberAccent
+                          : Colors.pink,
                       alignment: Alignment.center,
                       child: Text(mockCategories[index]),
                     ),
@@ -89,7 +94,7 @@ class MoviesSection extends StatelessWidget {
                       width: 200,
                       child: state is MovieListLoading
                           ? const Center(child: CircularProgressIndicator())
-                          : _buildCardItem(index),
+                          : _buildCardItem(context, index),
                     ),
                   ),
                 );
@@ -101,9 +106,13 @@ class MoviesSection extends StatelessWidget {
     );
   }
 
-  Widget _buildCardItem(int index) {
-    final String poster =
-        (state as MovieListLoaded).movies.movies[index].poster;
-    return Image.network("https://image.tmdb.org/t/p/original/${poster}");
+  Widget _buildCardItem(BuildContext context, int index) {
+    final Movie movie = (state as MovieListLoaded).movies.movies[index];
+    return GestureDetector(
+      onTap: () =>
+          context.read<MovieListBloc>().add(NavigateToMovieDetailsEvent(movie)),
+      child:
+          Image.network("https://image.tmdb.org/t/p/original/${movie.poster}"),
+    );
   }
 }

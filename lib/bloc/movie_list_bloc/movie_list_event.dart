@@ -11,9 +11,16 @@ class GetMovieListEvent extends MovieListEvent {}
 
 class ChangeMovieListEvent extends MovieListEvent {
   final int categoryIndex;
-
   const ChangeMovieListEvent(this.categoryIndex);
 
   @override
   List<Object> get props => [categoryIndex];
+}
+
+class NavigateToMovieDetailsEvent extends MovieListEvent {
+  final Movie movie;
+  const NavigateToMovieDetailsEvent(this.movie);
+
+  @override
+  List<Object> get props => [movie];
 }

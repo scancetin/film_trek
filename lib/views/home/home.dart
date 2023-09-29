@@ -1,4 +1,7 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:film_trek/bloc/movie_list_bloc/movie_list_bloc.dart';
+import 'package:film_trek/views/home/movie_details_view.dart';
 import 'package:film_trek/views/widgets/home/custom_carousel.dart';
 import 'package:film_trek/views/widgets/home/custom_search_bar.dart';
 import 'package:film_trek/views/widgets/home/home_app_bar.dart';
@@ -12,29 +15,30 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocBuilder<MovieListBloc, MovieListState>(
-        builder: (context, state) {
-          if (state is MovieListInitial) {
-            return const Center(child: CircularProgressIndicator());
-          } else if (state is MovieListLoaded || state is MovieListLoading) {
-            return SafeArea(
-              bottom: false,
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    const HomeAppBar(),
-                    const CustomSearchBar(),
-                    CustomCarousel(state: state),
-                    MoviesSection(state: state),
-                  ],
-                ),
+      body:
+          BlocBuilder<MovieListBloc, MovieListState>(builder: (context, state) {
+        if (state is MovieListInitial) {
+          return const Center(child: CircularProgressIndicator());
+        } else if (state is MovieListLoaded || state is MovieListLoading) {
+          return SafeArea(
+            bottom: false,
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  const HomeAppBar(),
+                  const CustomSearchBar(),
+                  CustomCarousel(state: state),
+                  MoviesSection(state: state),
+                ],
               ),
-            );
-          } else {
-            return const Center(child: Text("Error"));
-          }
-        },
-      ),
+            ),
+          );
+        } else if (state is MovieDetailsLoaded) {
+          return MovieDetailsView();
+        } else {
+          return const Center(child: Text("Error"));
+        }
+      }),
     );
   }
 }

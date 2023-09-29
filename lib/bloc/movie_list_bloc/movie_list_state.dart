@@ -13,10 +13,11 @@ final class MovieListLoading extends MovieListState {}
 
 final class MovieListLoaded extends MovieListState {
   final MovieResponse movies;
-  const MovieListLoaded(this.movies);
+  final int categoryIndex;
+  const MovieListLoaded(this.movies, this.categoryIndex);
 
   @override
-  List<Object> get props => [movies];
+  List<Object> get props => [movies, categoryIndex];
 }
 
 final class MovieListError extends MovieListState {
@@ -25,4 +26,16 @@ final class MovieListError extends MovieListState {
 
   @override
   List<Object> get props => [message];
+}
+
+//! movie details states
+final class MovieDetailsLoaded extends MovieListState {
+  final Movie movie;
+  final MovieDetailResponse movieDetail;
+  final MovieResponse similarMovies;
+
+  const MovieDetailsLoaded(this.movieDetail, this.similarMovies, this.movie);
+
+  @override
+  List<Object> get props => [movieDetail, similarMovies];
 }

@@ -1,4 +1,6 @@
 import 'package:equatable/equatable.dart';
+import 'package:film_trek/models/movie.dart';
+import 'package:film_trek/models/movie_detail_response.dart';
 import 'package:film_trek/models/movie_response.dart';
 import 'package:film_trek/repository/repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,7 +15,7 @@ class MovieListBloc extends Bloc<MovieListEvent, MovieListState> {
       try {
         emit(MovieListLoading());
         final MovieResponse movies = await movieRepo.getPopularMovies();
-        emit(MovieListLoaded(movies));
+        emit(MovieListLoaded(movies, 0));
       } catch (e) {
         emit(MovieListError(e.toString()));
       }
@@ -36,10 +38,20 @@ class MovieListBloc extends Bloc<MovieListEvent, MovieListState> {
           default:
             movies = await movieRepo.getPopularMovies();
         }
-        emit(MovieListLoaded(movies));
+        emit(MovieListLoaded(movies, event.categoryIndex));
       } catch (e) {
         emit(MovieListError(e.toString()));
       }
     });
+    on<NavigateToMovieDetailsEvent>(
+      (event, emit) async {
+        emit(MovieListLoading());
+        final MovieDetailResponse movieDetail =
+            await movieRepo.getMovieDetail(event.movie.id);
+        final MovieResponse similarMovies =
+            await movieRepo.getSimilarMovies(event.movie.id);
+        emit(MovieDetailsLoaded(movieDetail, similarMovies, event.movie));
+      },
+    );
   }
 }
