@@ -1,6 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
-import 'package:film_trek/bloc/movie_list_bloc/movie_list_bloc.dart';
+import 'package:film_trek/bloc/movie_list_bloc.dart';
 import 'package:film_trek/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

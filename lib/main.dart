@@ -1,6 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:film_trek/bloc/movie_list_bloc/movie_list_bloc.dart';
+import 'package:film_trek/bloc/movie_list_bloc.dart';
 import 'package:film_trek/views/home/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

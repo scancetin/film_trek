@@ -1,6 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:film_trek/bloc/movie_list_bloc/movie_list_bloc.dart';
+import 'package:film_trek/bloc/movie_list_bloc.dart';
 import 'package:film_trek/views/home/home.dart';
 import 'package:film_trek/views/home/movie_details_view.dart';
 import 'package:flutter/material.dart';
@@ -17,10 +17,16 @@ class SplashView extends StatelessWidget {
           // splash screen
           if (state is MovieListInitial) {
             return const Center(child: Icon(Icons.local_movies_outlined));
-          } else if (state is MovieListLoaded || state is MovieListLoading) {
+          }
+          // ! loading kısmı splash olarak kullanılabilir
+          // ! -> filmlere circularProgress koymak yerine bütün sayfaya splash koyulur.
+          else if (state is MovieListLoaded || state is MovieListLoading) {
             return Home();
           } else if (state is MovieDetailsLoaded) {
             return MovieDetailsView();
+          } else if (state is MovieListError) {
+            // todo error text and load again button
+            return const Center(child: CircularProgressIndicator());
           } else {
             return const Center(child: CircularProgressIndicator());
           }

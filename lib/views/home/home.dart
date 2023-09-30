@@ -1,6 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:film_trek/bloc/movie_list_bloc/movie_list_bloc.dart';
+import 'package:film_trek/bloc/movie_list_bloc.dart';
 import 'package:film_trek/views/home/movie_details_view.dart';
 import 'package:film_trek/views/widgets/home/custom_carousel.dart';
 import 'package:film_trek/views/widgets/home/custom_search_bar.dart';
