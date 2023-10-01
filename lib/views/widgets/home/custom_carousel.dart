@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CustomCarousel extends StatelessWidget {
-  final MovieListState state;
+  final MovieListLoaded state;
   const CustomCarousel({super.key, required this.state});
 
   @override
@@ -14,22 +14,20 @@ class CustomCarousel extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: CarouselSlider.builder(
           options: CarouselOptions(enlargeCenterPage: true),
-          itemCount: state is MovieDetailsLoaded ? 3 : 0,
+          itemCount: 3,
           itemBuilder: (context, index, _) {
             return Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(30),
                   color: Colors.black54,
                 ),
-                child: state is MovieListLoading
-                    ? const Center(child: CircularProgressIndicator())
-                    : _buildCarouselItem(context, index));
+                child: _buildCarouselItem(context, index));
           }),
     );
   }
 
   Widget _buildCarouselItem(BuildContext context, int index) {
-    final Movie movie = (state as MovieListLoaded).movies.movies[index];
+    final Movie movie = state.movies.movies[index];
     return GestureDetector(
       onTap: () =>
           context.read<MovieListBloc>().add(NavigateToMovieDetailsEvent(movie)),

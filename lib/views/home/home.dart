@@ -15,11 +15,8 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:
-          BlocBuilder<MovieListBloc, MovieListState>(builder: (context, state) {
-        if (state is MovieListInitial) {
-          return const Center(child: CircularProgressIndicator());
-        } else if (state is MovieListLoaded || state is MovieListLoading) {
+      body: BlocBuilder<MovieListBloc, MovieListState>(
+        builder: (context, state) {
           return SafeArea(
             bottom: false,
             child: SingleChildScrollView(
@@ -27,18 +24,14 @@ class Home extends StatelessWidget {
                 children: [
                   const HomeAppBar(),
                   const CustomSearchBar(),
-                  CustomCarousel(state: state),
-                  MoviesSection(state: state),
+                  CustomCarousel(state: state as MovieListLoaded),
+                  MoviesSection(state: state as MovieListLoaded),
                 ],
               ),
             ),
           );
-        } else if (state is MovieDetailsLoaded) {
-          return MovieDetailsView();
-        } else {
-          return const Center(child: Text("Error"));
-        }
-      }),
+        },
+      ),
     );
   }
 }

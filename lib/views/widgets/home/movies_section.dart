@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MoviesSection extends StatelessWidget {
-  final MovieListState state;
+  final MovieListLoaded state;
   const MoviesSection({super.key, required this.state});
 
   @override
@@ -46,8 +46,7 @@ class MoviesSection extends StatelessWidget {
                   child: Card(
                     child: Container(
                       width: 100,
-                      color: state is MovieListLoaded &&
-                              (state as MovieListLoaded).categoryIndex == index
+                      color: state.categoryIndex == index
                           ? Colors.amberAccent
                           : Colors.pink,
                       alignment: Alignment.center,
@@ -83,9 +82,8 @@ class MoviesSection extends StatelessWidget {
             height: 250,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
-              itemCount: state is MovieListLoading
-                  ? 20
-                  : (state as MovieListLoaded).movies.movies.length,
+              itemCount:
+                  state is MovieListLoading ? 20 : state.movies.movies.length,
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: () {},
@@ -107,7 +105,7 @@ class MoviesSection extends StatelessWidget {
   }
 
   Widget _buildCardItem(BuildContext context, int index) {
-    final Movie movie = (state as MovieListLoaded).movies.movies[index];
+    final Movie movie = state.movies.movies[index];
     return GestureDetector(
       onTap: () =>
           context.read<MovieListBloc>().add(NavigateToMovieDetailsEvent(movie)),
