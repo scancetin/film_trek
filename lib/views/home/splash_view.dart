@@ -20,7 +20,7 @@ class SplashView extends StatelessWidget {
           }
           // ! loading kısmı splash olarak kullanılabilir
           // ! -> filmlere circularProgress koymak yerine bütün sayfaya splash koyulur.
-          else if (state is MovieListLoaded) {
+          else if (state is MovieListLoaded || state is MovieListLoading) {
             return Home();
           } else if (state is MovieDetailsLoaded) {
             return MovieDetailsView();

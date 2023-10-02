@@ -45,7 +45,7 @@ class MovieListBloc extends Bloc<MovieListEvent, MovieListState> {
     });
     on<NavigateToMovieDetailsEvent>(
       (event, emit) async {
-        emit(MovieListLoading());
+        emit(MovieDetailsLoading());
         final MovieDetailResponse movieDetail =
             await movieRepo.getMovieDetail(event.movie.id);
         final MovieResponse similarMovies =

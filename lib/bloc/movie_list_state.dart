@@ -29,6 +29,9 @@ final class MovieListError extends MovieListState {
 }
 
 //! movie details states
+
+final class MovieDetailsLoading extends MovieListState {}
+
 final class MovieDetailsLoaded extends MovieListState {
   final Movie movie;
   final MovieDetailResponse movieDetail;
