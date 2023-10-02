@@ -1,9 +1,10 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:film_trek/bloc/movie_list_bloc.dart';
+import 'package:film_trek/models/movie.dart';
 import 'package:film_trek/style/themes.dart';
 import 'package:film_trek/utils/constants.dart';
+import 'package:film_trek/views/widgets/movie_list_item.dart';
 import 'package:film_trek/views/widgets/home/category_item.dart';
-import 'package:film_trek/views/widgets/home/movie_list_item.dart';
 import 'package:film_trek/views/widgets/home/carousel_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,7 +26,7 @@ class Home extends StatelessWidget {
                   _buildCustomSearchBar(context),
                   _buildCustomCarousel(state),
                   _buildCategorySection(state),
-                  _buildMoviesSection(state),
+                  _buildMoviesSection(state)
                 ],
               ),
             ),
@@ -170,7 +171,10 @@ Widget _buildMoviesSection(MovieListState state) {
                 ? 20
                 : (state as MovieListLoaded).movies.movies.length,
             itemBuilder: (context, index) {
-              return MovieListItem(state: state, index: index);
+              final Movie? movie =
+                  state is MovieListLoaded ? state.movies.movies[index] : null;
+              return MovieListItem(
+                  movie: movie, isLoaded: state is MovieListLoaded);
             },
           ),
         ),

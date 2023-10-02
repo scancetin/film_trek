@@ -1,25 +1,19 @@
-// ignore_for_file: prefer_const_constructors, unnecessary_cast
-
 import 'package:film_trek/bloc/movie_list_bloc.dart';
 import 'package:film_trek/models/movie.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MovieListItem extends StatelessWidget {
-  final MovieListState state;
-  final int index;
-  const MovieListItem({super.key, required this.state, required this.index});
+  final Movie? movie;
+  final bool isLoaded;
+  const MovieListItem({super.key, required this.movie, required this.isLoaded});
 
   @override
   Widget build(BuildContext context) {
-    final Movie? movie = state is MovieListLoaded
-        ? (state as MovieListLoaded).movies.movies[index]
-        : null;
-
     return Card(
       child: SizedBox(
         width: 200,
-        child: state is MovieListLoading
+        child: !isLoaded
             ? const Center(child: CircularProgressIndicator())
             : GestureDetector(
                 onTap: () => context

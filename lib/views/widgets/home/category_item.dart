@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors, unnecessary_cast
-
 import 'package:film_trek/bloc/movie_list_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,11 +7,12 @@ class CategoryItem extends StatelessWidget {
   final int index;
   final String categoryName;
 
-  const CategoryItem(
-      {super.key,
-      required this.categoryName,
-      required this.index,
-      required this.state});
+  const CategoryItem({
+    super.key,
+    required this.categoryName,
+    required this.index,
+    required this.state,
+  });
 
   @override
   Widget build(BuildContext context) {
