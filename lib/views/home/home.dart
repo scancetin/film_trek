@@ -27,7 +27,7 @@ class Home extends StatelessWidget {
                   _buildCustomSearchBar(context),
                   _buildCustomCarousel(state),
                   _buildCategorySection(state),
-                  MoviesSection(state: state),
+                  _buildMoviesSection(state),
                 ],
               ),
             ),
@@ -108,78 +108,77 @@ Widget _buildCategorySection(MovieListState state) {
 
   return Padding(
     padding: const EdgeInsets.only(left: 15, top: 10),
-    child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-      Container(
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Container(
           padding: const EdgeInsets.only(bottom: 5),
           alignment: Alignment.centerLeft,
           child: const Text(
             "Categories",
             style: TextStyle(fontSize: 20),
-          )),
-      Container(
-        padding: const EdgeInsets.only(bottom: 5),
-        height: 40,
-        child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemCount: mockCategories.length,
-          itemBuilder: (context, index) {
-            return CategoryItem(
-              state: state,
-              categoryName: mockCategories[index],
-              index: index,
-            );
-          },
+          ),
         ),
-      ),
-    ]),
+        Container(
+          padding: const EdgeInsets.only(bottom: 5),
+          height: 40,
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: mockCategories.length,
+            itemBuilder: (context, index) {
+              return CategoryItem(
+                state: state,
+                categoryName: mockCategories[index],
+                index: index,
+              );
+            },
+          ),
+        ),
+      ],
+    ),
   );
 }
 
-class MoviesSection extends StatelessWidget {
-  final MovieListState state;
-  const MoviesSection({super.key, required this.state});
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 15, top: 10),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 5, right: 20),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text(
-                  "Movies",
-                  style: TextStyle(fontSize: 20),
+Widget _buildMoviesSection(MovieListState state) {
+  return Padding(
+    padding: const EdgeInsets.only(left: 15, top: 10),
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(bottom: 5, right: 20),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text(
+                "Movies",
+                style: TextStyle(fontSize: 20),
+              ),
+              GestureDetector(
+                onTap: () {},
+                child: Text(
+                  "See All",
+                  style: TextStyle(
+                      color: darkColorScheme.inversePrimary, fontSize: 15),
                 ),
-                GestureDetector(
-                  onTap: () {},
-                  child: Text(
-                    "See All",
-                    style: TextStyle(
-                        color: darkColorScheme.inversePrimary, fontSize: 15),
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
-          Container(
-            padding: const EdgeInsets.only(bottom: 5),
-            height: 250,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: state is MovieListLoading
-                  ? 20
-                  : (state as MovieListLoaded).movies.movies.length,
-              itemBuilder: (context, index) {
-                return MovieListItem(state: state, index: index);
-              },
-            ),
+        ),
+        Container(
+          padding: const EdgeInsets.only(bottom: 5),
+          height: 250,
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: state is MovieListLoading
+                ? 20
+                : (state as MovieListLoaded).movies.movies.length,
+            itemBuilder: (context, index) {
+              return MovieListItem(state: state, index: index);
+            },
           ),
-        ],
-      ),
-    );
-  }
+        ),
+      ],
+    ),
+  );
 }
