@@ -37,6 +37,6 @@ class SearchingMovieEvent extends MovieListEvent {
   final String movieName;
   const SearchingMovieEvent(this.movieName);
 
-  @override
-  List<Object> get props => [movieName];
+  // @override
+  // List<Object> get props => [];
 }

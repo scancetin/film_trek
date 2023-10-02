@@ -35,9 +35,8 @@ class MovieRepository {
   //! ToDo: blade%20runner
   Future<MovieResponse> getMoviesByName(
       {required String name, int page = 1}) async {
-    String movie = "blade";
     var params = {
-      "query": movie,
+      "query": name,
       "api_key": apiKey,
       "language": "en-US",
       "page": page,
