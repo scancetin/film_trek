@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors, unnecessary_cast
-
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:film_trek/bloc/movie_list_bloc.dart';
 import 'package:film_trek/style/themes.dart';
@@ -88,9 +86,7 @@ Widget _buildCustomCarousel(MovieListState state) {
           ),
           child: state is MovieListLoaded
               ? CarouselItem(movie: state.movies.movies[index])
-              : Center(
-                  child: CircularProgressIndicator(),
-                ),
+              : const Center(child: CircularProgressIndicator()),
         );
       },
     ),
@@ -119,9 +115,8 @@ Widget _buildCategorySection(MovieListState state) {
             style: TextStyle(fontSize: 20),
           ),
         ),
-        Container(
-          padding: const EdgeInsets.only(bottom: 5),
-          height: 40,
+        SizedBox(
+          height: 35,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: mockCategories.length,
@@ -150,16 +145,17 @@ Widget _buildMoviesSection(MovieListState state) {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
-                "Movies",
-                style: TextStyle(fontSize: 20),
-              ),
+              const Text("Movies", style: TextStyle(fontSize: 20)),
               GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  //! goes to movielist
+                },
                 child: Text(
                   "See All",
                   style: TextStyle(
-                      color: darkColorScheme.inversePrimary, fontSize: 15),
+                    color: darkColorScheme.inversePrimary,
+                    fontSize: 15,
+                  ),
                 ),
               ),
             ],
