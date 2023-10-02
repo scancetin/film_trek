@@ -1,16 +1,21 @@
+import 'package:film_trek/bloc/movie_list_bloc.dart';
 import 'package:film_trek/models/movie.dart';
+import 'package:film_trek/models/movie_response.dart';
 import 'package:film_trek/style/themes.dart';
 import 'package:film_trek/ui/widgets/movie_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MoviesListSection extends StatelessWidget {
-  final List<Movie> movieList;
+  final MovieResponse movieResponse;
   final String listTitle;
   const MoviesListSection(
-      {super.key, required this.movieList, required this.listTitle});
+      {super.key, required this.movieResponse, required this.listTitle});
 
   @override
   Widget build(BuildContext context) {
+    final List<Movie> movieList = movieResponse.movies;
+
     return Padding(
       padding: const EdgeInsets.only(left: 15, top: 10),
       child: Column(
@@ -24,7 +29,11 @@ class MoviesListSection extends StatelessWidget {
                 Text(listTitle, style: const TextStyle(fontSize: 20)),
                 GestureDetector(
                   onTap: () {
-                    //! goes to movielist
+                    if (movieList.isNotEmpty) {
+                      context
+                          .read<MovieListBloc>()
+                          .add(NavigateToSeeAllEvent(movieResponse));
+                    }
                   },
                   child: Text(
                     "See All",
@@ -42,7 +51,7 @@ class MoviesListSection extends StatelessWidget {
             height: 250,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
-              itemCount: !movieList.isNotEmpty ? 20 : movieList.length,
+              itemCount: movieList.isNotEmpty ? 20 : movieList.length,
               itemBuilder: (context, index) {
                 final Movie? movie =
                     movieList.isNotEmpty ? movieList[index] : null;

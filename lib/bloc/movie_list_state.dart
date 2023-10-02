@@ -40,5 +40,17 @@ final class MovieDetailsLoaded extends MovieListState {
   const MovieDetailsLoaded(this.movieDetail, this.similarMovies, this.movie);
 
   @override
-  List<Object> get props => [movieDetail, similarMovies];
+  List<Object> get props => [movieDetail, similarMovies, movie];
+}
+
+//! see all states
+final class SeeAllLoading extends MovieListState {}
+
+final class SeeAllLoaded extends MovieListState {
+  final MovieResponse movies;
+
+  const SeeAllLoaded(this.movies);
+
+  @override
+  List<Object> get props => [movies];
 }

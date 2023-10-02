@@ -24,3 +24,11 @@ class NavigateToMovieDetailsEvent extends MovieListEvent {
   @override
   List<Object> get props => [movie];
 }
+
+class NavigateToSeeAllEvent extends MovieListEvent {
+  final MovieResponse movies;
+  const NavigateToSeeAllEvent(this.movies);
+
+  @override
+  List<Object> get props => [movies];
+}

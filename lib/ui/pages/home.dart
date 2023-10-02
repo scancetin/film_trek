@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:film_trek/bloc/movie_list_bloc.dart';
+import 'package:film_trek/models/movie_response.dart';
 import 'package:film_trek/utils/constants.dart';
 import 'package:film_trek/ui/widgets/movies_list_section.dart';
 import 'package:film_trek/ui/widgets/home/category_item.dart';
@@ -25,8 +26,9 @@ class Home extends StatelessWidget {
                   _buildCustomCarousel(state),
                   _buildCategorySection(state),
                   MoviesListSection(
-                    movieList:
-                        state is MovieListLoaded ? state.movies.movies : [],
+                    movieResponse: state is MovieListLoaded
+                        ? state.movies
+                        : MovieResponse([], ""),
                     listTitle: "Movies",
                   ),
                 ],

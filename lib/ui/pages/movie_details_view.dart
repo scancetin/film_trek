@@ -24,7 +24,7 @@ class MovieDetailsView extends StatelessWidget {
                     _buildMovieDetails(state),
                     const SizedBox(height: 10),
                     MoviesListSection(
-                      movieList: state.similarMovies.movies,
+                      movieResponse: state.similarMovies,
                       listTitle: "Similar Movies",
                     ),
                   ],

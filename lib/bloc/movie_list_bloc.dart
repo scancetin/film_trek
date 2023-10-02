@@ -53,5 +53,11 @@ class MovieListBloc extends Bloc<MovieListEvent, MovieListState> {
         emit(MovieDetailsLoaded(movieDetail, similarMovies, event.movie));
       },
     );
+    on<NavigateToSeeAllEvent>(
+      (event, emit) async {
+        emit(SeeAllLoading());
+        emit(SeeAllLoaded(event.movies));
+      },
+    );
   }
 }
