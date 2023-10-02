@@ -7,12 +7,11 @@ class CategoryItem extends StatelessWidget {
   final int index;
   final String categoryName;
 
-  const CategoryItem({
-    super.key,
-    required this.categoryName,
-    required this.index,
-    required this.state,
-  });
+  const CategoryItem(
+      {super.key,
+      required this.categoryName,
+      required this.index,
+      required this.state});
 
   @override
   Widget build(BuildContext context) {

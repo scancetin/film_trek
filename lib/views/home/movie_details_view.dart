@@ -1,7 +1,6 @@
 import 'package:film_trek/bloc/movie_list_bloc.dart';
-import 'package:film_trek/models/movie.dart';
 import 'package:film_trek/utils/constants.dart';
-import 'package:film_trek/views/widgets/movie_list_item.dart';
+import 'package:film_trek/views/widgets/movies_list_section.dart';
 import 'package:film_trek/views/widgets/rating_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,7 +23,10 @@ class MovieDetailsView extends StatelessWidget {
                     const SizedBox(height: 10),
                     _buildMovieDetails(state),
                     const SizedBox(height: 10),
-                    _buildMovieListSection(state),
+                    MoviesListSection(
+                      movieList: state.similarMovies.movies,
+                      listTitle: "Similar Movies",
+                    ),
                   ],
                 );
               } else {
@@ -102,7 +104,7 @@ class MovieDetailsView extends StatelessWidget {
                 child: Container(width: 1, color: Colors.white),
               ),
               _buildMovieInfoWidget(
-                state.movieDetail.movieDetail.genres.firstOrNull,
+                state.movieDetail.movieDetail.genres.first ?? "",
                 Icons.local_movies_outlined,
               ),
             ],
@@ -128,32 +130,6 @@ class MovieDetailsView extends StatelessWidget {
         const SizedBox(width: 3),
         Text(info),
       ],
-    );
-  }
-
-  Widget _buildMovieListSection(MovieListState state) {
-    return Padding(
-      padding: const EdgeInsets.all(5),
-      child: Column(children: [
-        const Text("Similar Movies"),
-        Container(
-          padding: const EdgeInsets.only(bottom: 5),
-          height: 250,
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: state is MovieDetailsLoading
-                ? 20
-                : (state as MovieDetailsLoaded).similarMovies.movies.length,
-            itemBuilder: (context, index) {
-              final Movie? movie = state is MovieDetailsLoaded
-                  ? state.similarMovies.movies[index]
-                  : null;
-              return MovieListItem(
-                  movie: movie, isLoaded: state is MovieDetailsLoaded);
-            },
-          ),
-        ),
-      ]),
     );
   }
 }

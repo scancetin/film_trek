@@ -1,9 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:film_trek/bloc/movie_list_bloc.dart';
-import 'package:film_trek/models/movie.dart';
-import 'package:film_trek/style/themes.dart';
 import 'package:film_trek/utils/constants.dart';
-import 'package:film_trek/views/widgets/movie_list_item.dart';
+import 'package:film_trek/views/widgets/movies_list_section.dart';
 import 'package:film_trek/views/widgets/home/category_item.dart';
 import 'package:film_trek/views/widgets/home/carousel_item.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +24,11 @@ class Home extends StatelessWidget {
                   _buildCustomSearchBar(context),
                   _buildCustomCarousel(state),
                   _buildCategorySection(state),
-                  _buildMoviesSection(state)
+                  MoviesListSection(
+                    movieList:
+                        state is MovieListLoaded ? state.movies.movies : [],
+                    listTitle: "Movies",
+                  ),
                 ],
               ),
             ),
@@ -123,58 +125,9 @@ Widget _buildCategorySection(MovieListState state) {
             itemCount: mockCategories.length,
             itemBuilder: (context, index) {
               return CategoryItem(
-                state: state,
-                categoryName: mockCategories[index],
-                index: index,
-              );
-            },
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
-Widget _buildMoviesSection(MovieListState state) {
-  return Padding(
-    padding: const EdgeInsets.only(left: 15, top: 10),
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(bottom: 5, right: 20),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text("Movies", style: TextStyle(fontSize: 20)),
-              GestureDetector(
-                onTap: () {
-                  //! goes to movielist
-                },
-                child: Text(
-                  "See All",
-                  style: TextStyle(
-                    color: darkColorScheme.inversePrimary,
-                    fontSize: 15,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-        Container(
-          padding: const EdgeInsets.only(bottom: 5),
-          height: 250,
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: state is MovieListLoading
-                ? 20
-                : (state as MovieListLoaded).movies.movies.length,
-            itemBuilder: (context, index) {
-              final Movie? movie =
-                  state is MovieListLoaded ? state.movies.movies[index] : null;
-              return MovieListItem(
-                  movie: movie, isLoaded: state is MovieListLoaded);
+                  state: state,
+                  categoryName: mockCategories[index],
+                  index: index);
             },
           ),
         ),

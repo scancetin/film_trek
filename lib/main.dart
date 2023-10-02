@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:film_trek/bloc/movie_list_bloc.dart';
 import 'package:film_trek/views/home/splash_view.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +22,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(useMaterial3: true, colorScheme: darkColorScheme),
       title: 'Material App',
-      home: SplashView(),
+      home: const SplashView(),
     );
   }
 }

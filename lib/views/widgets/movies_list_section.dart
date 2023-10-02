@@ -1,0 +1,75 @@
+import 'package:film_trek/bloc/movie_list_bloc.dart';
+import 'package:film_trek/models/movie.dart';
+import 'package:film_trek/style/themes.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+class MoviesListSection extends StatelessWidget {
+  final List<Movie> movieList;
+  final String listTitle;
+  const MoviesListSection(
+      {super.key, required this.movieList, required this.listTitle});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 15, top: 10),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(bottom: 5, right: 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(listTitle, style: const TextStyle(fontSize: 20)),
+                GestureDetector(
+                  onTap: () {
+                    //! goes to movielist
+                  },
+                  child: Text(
+                    "See All",
+                    style: TextStyle(
+                      color: darkColorScheme.inversePrimary,
+                      fontSize: 15,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.only(bottom: 5),
+            height: 250,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: !movieList.isNotEmpty ? 20 : movieList.length,
+              itemBuilder: (context, index) {
+                final Movie? movie =
+                    movieList.isNotEmpty ? movieList[index] : null;
+                return _buildMovieListItem(context, movie);
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+Widget _buildMovieListItem(BuildContext context, Movie? movie) {
+  return Card(
+    child: SizedBox(
+      width: 200,
+      child: movie == null
+          ? const Center(child: CircularProgressIndicator())
+          : GestureDetector(
+              onTap: () => context
+                  .read<MovieListBloc>()
+                  .add(NavigateToMovieDetailsEvent(movie)),
+              child: Image.network(
+                  "https://image.tmdb.org/t/p/original/${movie.poster}"),
+            ),
+    ),
+  );
+}
