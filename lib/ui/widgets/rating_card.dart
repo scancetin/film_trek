@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class RatingCard extends StatelessWidget {
-  final String rating;
+  final num rating;
   const RatingCard({super.key, required this.rating});
 
   @override
@@ -17,7 +17,7 @@ class RatingCard extends StatelessWidget {
               color: Colors.orangeAccent,
             ),
             Text(
-              rating,
+              rating.toStringAsFixed(1),
               style: const TextStyle(color: Colors.orangeAccent),
             ),
           ],

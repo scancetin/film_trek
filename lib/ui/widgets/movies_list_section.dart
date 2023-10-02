@@ -1,8 +1,7 @@
-import 'package:film_trek/bloc/movie_list_bloc.dart';
 import 'package:film_trek/models/movie.dart';
 import 'package:film_trek/style/themes.dart';
+import 'package:film_trek/ui/widgets/movie_card.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MoviesListSection extends StatelessWidget {
   final List<Movie> movieList;
@@ -47,7 +46,7 @@ class MoviesListSection extends StatelessWidget {
               itemBuilder: (context, index) {
                 final Movie? movie =
                     movieList.isNotEmpty ? movieList[index] : null;
-                return _buildMovieListItem(context, movie);
+                return MovieCard(movie: movie);
               },
             ),
           ),
@@ -55,21 +54,4 @@ class MoviesListSection extends StatelessWidget {
       ),
     );
   }
-}
-
-Widget _buildMovieListItem(BuildContext context, Movie? movie) {
-  return Card(
-    child: SizedBox(
-      width: 200,
-      child: movie == null
-          ? const Center(child: CircularProgressIndicator())
-          : GestureDetector(
-              onTap: () => context
-                  .read<MovieListBloc>()
-                  .add(NavigateToMovieDetailsEvent(movie)),
-              child: Image.network(
-                  "https://image.tmdb.org/t/p/original/${movie.poster}"),
-            ),
-    ),
-  );
 }

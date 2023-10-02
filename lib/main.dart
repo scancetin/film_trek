@@ -1,5 +1,5 @@
 import 'package:film_trek/bloc/movie_list_bloc.dart';
-import 'package:film_trek/views/home/splash_view.dart';
+import 'package:film_trek/ui/pages/splash_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'style/themes.dart';
@@ -8,7 +8,7 @@ void main() {
   runApp(
     BlocProvider(
       create: (context) => MovieListBloc()..add(GetMovieListEvent()),
-      child: MyApp(),
+      child: const MyApp(),
     ),
   );
 }

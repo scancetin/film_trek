@@ -1,7 +1,7 @@
 import 'package:film_trek/bloc/movie_list_bloc.dart';
 import 'package:film_trek/utils/constants.dart';
-import 'package:film_trek/views/widgets/movies_list_section.dart';
-import 'package:film_trek/views/widgets/rating_card.dart';
+import 'package:film_trek/ui/widgets/movies_list_section.dart';
+import 'package:film_trek/ui/widgets/rating_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -112,7 +112,7 @@ class MovieDetailsView extends StatelessWidget {
         ),
         const SizedBox(height: 10),
         // movie rating
-        RatingCard(rating: state.movie.rating.toString()),
+        RatingCard(rating: state.movie.rating),
         // movie overview
         const SizedBox(height: 10),
         Padding(

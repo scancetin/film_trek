@@ -1,6 +1,6 @@
 import 'package:film_trek/bloc/movie_list_bloc.dart';
-import 'package:film_trek/views/home/home.dart';
-import 'package:film_trek/views/home/movie_details_view.dart';
+import 'package:film_trek/ui/pages/home.dart';
+import 'package:film_trek/ui/pages/movie_details_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
