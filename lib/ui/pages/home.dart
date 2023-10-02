@@ -64,15 +64,19 @@ Widget _buildHomeAppBar() {
 }
 
 Widget _buildCustomSearchBar(BuildContext context) {
+  final TextEditingController textCon = TextEditingController();
   return Padding(
     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
     child: SearchBar(
+      controller: textCon,
       padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
           const EdgeInsets.only(left: 16)),
       leading: const Icon(Icons.search),
       hintText: "Search a title",
       hintStyle: MaterialStateProperty.all<TextStyle>(
           TextStyle(color: Theme.of(context).hintColor)),
+      onSubmitted: (value) =>
+          context.read<MovieListBloc>().add(SearchingMovieEvent(textCon.text)),
     ),
   );
 }

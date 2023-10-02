@@ -48,7 +48,6 @@ final class SeeAllLoading extends MovieListState {}
 
 final class SeeAllLoaded extends MovieListState {
   final MovieResponse movies;
-
   const SeeAllLoaded(this.movies);
 
   @override

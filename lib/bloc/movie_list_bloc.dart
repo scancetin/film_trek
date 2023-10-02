@@ -59,5 +59,13 @@ class MovieListBloc extends Bloc<MovieListEvent, MovieListState> {
         emit(SeeAllLoaded(event.movies));
       },
     );
+    on<SearchingMovieEvent>(
+      (event, emit) async {
+        emit(SeeAllLoading());
+        final MovieResponse movies =
+            await movieRepo.getMoviesByName(name: event.movieName);
+        emit(SeeAllLoaded(movies));
+      },
+    );
   }
 }

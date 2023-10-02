@@ -32,3 +32,11 @@ class NavigateToSeeAllEvent extends MovieListEvent {
   @override
   List<Object> get props => [movies];
 }
+
+class SearchingMovieEvent extends MovieListEvent {
+  final String movieName;
+  const SearchingMovieEvent(this.movieName);
+
+  @override
+  List<Object> get props => [movieName];
+}
