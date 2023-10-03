@@ -16,53 +16,51 @@ class MoviesListSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final List<Movie> movieList = movieResponse.movies;
 
-    return Padding(
-      padding: const EdgeInsets.only(left: 15, top: 10),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 5, right: 20),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(listTitle, style: const TextStyle(fontSize: 20)),
-                GestureDetector(
-                  onTap: () {
-                    if (movieList.isNotEmpty) {
-                      context
-                          .read<MovieListBloc>()
-                          .add(NavigateToSeeAllEvent(movieResponse));
-                    }
-                  },
-                  child: Text(
-                    "See All",
-                    style: TextStyle(
-                      color: darkColorScheme.inversePrimary,
-                      fontSize: 15,
-                    ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(listTitle, style: const TextStyle(fontSize: 20)),
+              GestureDetector(
+                onTap: () {
+                  if (movieList.isNotEmpty) {
+                    context
+                        .read<MovieListBloc>()
+                        .add(NavigateToSeeAllEvent(movieResponse));
+                  }
+                },
+                child: Text(
+                  "See All",
+                  style: TextStyle(
+                    color: darkColorScheme.inversePrimary,
+                    fontSize: 15,
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-          SizedBox(
-            height: 250,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: movieList.isNotEmpty ? movieList.length : 5,
-              itemBuilder: (context, index) {
-                final Movie? movie =
-                    movieList.isNotEmpty ? movieList[index] : null;
-                return SizedBox(
-                  width: 170,
-                  child: MovieCard(movie: movie, poster: movie!.poster),
-                );
-              },
-            ),
+        ),
+        Container(
+          height: 250,
+          padding: const EdgeInsets.only(left: 15),
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: movieList.isNotEmpty ? movieList.length : 5,
+            itemBuilder: (context, index) {
+              final Movie? movie =
+                  movieList.isNotEmpty ? movieList[index] : null;
+              return SizedBox(
+                width: 170,
+                child: MovieCard(movie: movie, poster: movie!.poster),
+              );
+            },
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

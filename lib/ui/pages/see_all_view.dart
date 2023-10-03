@@ -15,13 +15,13 @@ class SeeAllView extends StatelessWidget {
         child: BlocBuilder<MovieListBloc, MovieListState>(
           builder: (context, state) {
             if (state is SeeAllLoaded) {
-              return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    _buildSeeAllAppBar(context),
-                    Expanded(
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  _buildSeeAllAppBar(context),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: GridView.count(
                         crossAxisCount: 2,
                         childAspectRatio: 170 / 250,
@@ -33,8 +33,8 @@ class SeeAllView extends StatelessWidget {
                                 )),
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               );
             } else {
               return const Center(child: Text("Error"));
@@ -46,22 +46,18 @@ class SeeAllView extends StatelessWidget {
   }
 
   Widget _buildSeeAllAppBar(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10),
-      child: ListTile(
-        leading: IconButton(
-          onPressed: () =>
-              context.read<MovieListBloc>().add(GetMovieListEvent()),
-          icon: const Icon(Icons.arrow_back_ios_new),
-        ),
-        trailing: IconButton(
-          onPressed: () {
-            // todo: favorite movies page
-          },
-          icon: const Icon(
-            Icons.favorite,
-            color: AppColors.favoriteColor,
-          ),
+    return ListTile(
+      leading: IconButton(
+        onPressed: () => context.read<MovieListBloc>().add(GetMovieListEvent()),
+        icon: const Icon(Icons.arrow_back_ios_new),
+      ),
+      trailing: IconButton(
+        onPressed: () {
+          // todo: favorite movies page
+        },
+        icon: const Icon(
+          Icons.favorite,
+          color: AppColors.favoriteColor,
         ),
       ),
     );

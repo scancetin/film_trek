@@ -82,16 +82,14 @@ Widget _buildCustomSearchBar(BuildContext context) {
 
 Widget _buildCustomCarousel(MovieListLoaded state) {
   return Padding(
-    padding: const EdgeInsets.symmetric(vertical: 10),
+    padding: const EdgeInsets.symmetric(vertical: 20),
     child: CarouselSlider.builder(
       options: CarouselOptions(enlargeCenterPage: true, height: 190),
       itemCount: 3,
       itemBuilder: (context, index, _) {
         return MovieCard(
-          movie: state.movies.movies[index],
-          poster: state.movies.movies[index].backPoster,
-        );
-        // return MovieCard(movie: state.movies.movies[index]);
+            movie: state.movies.movies[index],
+            poster: state.movies.movies[index].backPoster);
       },
     ),
   );
@@ -106,46 +104,42 @@ Widget _buildCategorySection(MovieListLoaded state) {
     "Upcoming",
   ];
 
-  return Padding(
-    padding: const EdgeInsets.only(left: 15, top: 10),
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Container(
-          padding: const EdgeInsets.only(bottom: 5),
-          alignment: Alignment.centerLeft,
-          child: const Text(
-            "Categories",
-            style: TextStyle(fontSize: 20),
-          ),
+  return Column(
+    mainAxisAlignment: MainAxisAlignment.start,
+    children: [
+      Container(
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+        alignment: Alignment.centerLeft,
+        child: const Text(
+          "Categories",
+          style: TextStyle(fontSize: 20),
         ),
-        SizedBox(
-          height: 35,
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: mockCategories.length,
-            itemBuilder: (context, index) {
-              return GestureDetector(
-                onTap: () async {
-                  context
-                      .read<MovieListBloc>()
-                      .add(ChangeMovieListEvent(index));
-                },
-                child: Card(
-                  child: Container(
-                    width: 100,
-                    color: state.categoryIndex == index
-                        ? Colors.amberAccent
-                        : Colors.pink,
-                    alignment: Alignment.center,
-                    child: Text(mockCategories[index]),
-                  ),
+      ),
+      Container(
+        height: 35,
+        padding: const EdgeInsets.only(left: 15),
+        child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemCount: mockCategories.length,
+          itemBuilder: (context, index) {
+            return GestureDetector(
+              onTap: () async {
+                context.read<MovieListBloc>().add(ChangeMovieListEvent(index));
+              },
+              child: Card(
+                child: Container(
+                  width: 100,
+                  color: state.categoryIndex == index
+                      ? Colors.amberAccent
+                      : Colors.pink,
+                  alignment: Alignment.center,
+                  child: Text(mockCategories[index]),
                 ),
-              );
-            },
-          ),
+              ),
+            );
+          },
         ),
-      ],
-    ),
+      ),
+    ],
   );
 }
