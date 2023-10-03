@@ -15,9 +15,10 @@ class SplashView extends StatelessWidget {
         builder: (context, state) {
           if (state is MovieListInitial ||
               state is MovieDetailsLoading ||
-              state is SeeAllLoading) {
+              state is SeeAllLoading ||
+              state is MovieListLoading) {
             return const Center(child: Icon(Icons.local_movies_outlined));
-          } else if (state is MovieListLoaded || state is MovieListLoading) {
+          } else if (state is MovieListLoaded) {
             return const Home();
           } else if (state is MovieDetailsLoaded) {
             return const MovieDetailsView();

@@ -46,16 +46,18 @@ class MoviesListSection extends StatelessWidget {
               ],
             ),
           ),
-          Container(
-            padding: const EdgeInsets.only(bottom: 5),
+          SizedBox(
             height: 250,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
-              itemCount: movieList.isNotEmpty ? 20 : movieList.length,
+              itemCount: movieList.isNotEmpty ? movieList.length : 5,
               itemBuilder: (context, index) {
                 final Movie? movie =
                     movieList.isNotEmpty ? movieList[index] : null;
-                return MovieCard(movie: movie);
+                return SizedBox(
+                  width: 170,
+                  child: MovieCard(movie: movie, poster: movie!.poster),
+                );
               },
             ),
           ),

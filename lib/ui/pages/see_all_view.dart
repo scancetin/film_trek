@@ -15,23 +15,29 @@ class SeeAllView extends StatelessWidget {
         child: BlocBuilder<MovieListBloc, MovieListState>(
           builder: (context, state) {
             if (state is SeeAllLoaded) {
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  _buildSeeAllAppBar(context),
-                  Expanded(
-                    child: GridView.count(
-                      crossAxisCount: 2,
-                      children: List.generate(
-                          state.movies.movies.length,
-                          (index) =>
-                              MovieCard(movie: state.movies.movies[index])),
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    _buildSeeAllAppBar(context),
+                    Expanded(
+                      child: GridView.count(
+                        crossAxisCount: 2,
+                        childAspectRatio: 170 / 250,
+                        children: List.generate(
+                            state.movies.movies.length,
+                            (index) => MovieCard(
+                                  movie: state.movies.movies[index],
+                                  poster: state.movies.movies[index].poster,
+                                )),
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               );
             } else {
-              return const Center(child: CircularProgressIndicator());
+              return const Center(child: Text("Error"));
             }
           },
         ),

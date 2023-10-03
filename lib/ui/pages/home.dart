@@ -1,10 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:film_trek/bloc/movie_list_bloc.dart';
-import 'package:film_trek/models/movie_response.dart';
+import 'package:film_trek/ui/widgets/movie_card.dart';
 import 'package:film_trek/utils/constants.dart';
 import 'package:film_trek/ui/widgets/movies_list_section.dart';
-import 'package:film_trek/ui/widgets/home/category_item.dart';
-import 'package:film_trek/ui/widgets/home/carousel_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -16,25 +14,27 @@ class Home extends StatelessWidget {
     return Scaffold(
       body: BlocBuilder<MovieListBloc, MovieListState>(
         builder: (context, state) {
-          return SafeArea(
-            bottom: false,
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  _buildHomeAppBar(),
-                  _buildCustomSearchBar(context),
-                  _buildCustomCarousel(state),
-                  _buildCategorySection(state),
-                  MoviesListSection(
-                    movieResponse: state is MovieListLoaded
-                        ? state.movies
-                        : MovieResponse([], ""),
-                    listTitle: "Movies",
-                  ),
-                ],
+          if (state is MovieListLoaded) {
+            return SafeArea(
+              bottom: false,
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    _buildHomeAppBar(),
+                    _buildCustomSearchBar(context),
+                    _buildCustomCarousel(state),
+                    _buildCategorySection(state),
+                    MoviesListSection(
+                      movieResponse: state.movies,
+                      listTitle: "Movies",
+                    ),
+                  ],
+                ),
               ),
-            ),
-          );
+            );
+          } else {
+            return const Center(child: Text("Error"));
+          }
         },
       ),
     );
@@ -75,34 +75,29 @@ Widget _buildCustomSearchBar(BuildContext context) {
           TextStyle(color: Theme.of(context).hintColor)),
       onSubmitted: (value) {
         context.read<MovieListBloc>().add(SearchingMovieEvent(value));
-        // textCon.clear();
       },
     ),
   );
 }
 
-Widget _buildCustomCarousel(MovieListState state) {
+Widget _buildCustomCarousel(MovieListLoaded state) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 10),
     child: CarouselSlider.builder(
-      options: CarouselOptions(enlargeCenterPage: true),
-      itemCount: state is MovieListLoaded ? 3 : 0,
+      options: CarouselOptions(enlargeCenterPage: true, height: 190),
+      itemCount: 3,
       itemBuilder: (context, index, _) {
-        return Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(30),
-            color: Colors.black54,
-          ),
-          child: state is MovieListLoaded
-              ? CarouselItem(movie: state.movies.movies[index])
-              : const Center(child: CircularProgressIndicator()),
+        return MovieCard(
+          movie: state.movies.movies[index],
+          poster: state.movies.movies[index].backPoster,
         );
+        // return MovieCard(movie: state.movies.movies[index]);
       },
     ),
   );
 }
 
-Widget _buildCategorySection(MovieListState state) {
+Widget _buildCategorySection(MovieListLoaded state) {
   final List<String> mockCategories = [
     "Popular",
     "Trending",
@@ -130,10 +125,23 @@ Widget _buildCategorySection(MovieListState state) {
             scrollDirection: Axis.horizontal,
             itemCount: mockCategories.length,
             itemBuilder: (context, index) {
-              return CategoryItem(
-                  state: state,
-                  categoryName: mockCategories[index],
-                  index: index);
+              return GestureDetector(
+                onTap: () async {
+                  context
+                      .read<MovieListBloc>()
+                      .add(ChangeMovieListEvent(index));
+                },
+                child: Card(
+                  child: Container(
+                    width: 100,
+                    color: state.categoryIndex == index
+                        ? Colors.amberAccent
+                        : Colors.pink,
+                    alignment: Alignment.center,
+                    child: Text(mockCategories[index]),
+                  ),
+                ),
+              );
             },
           ),
         ),
