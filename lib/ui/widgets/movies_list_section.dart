@@ -60,6 +60,7 @@ class MoviesListSection extends StatelessWidget {
             },
           ),
         ),
+        const SizedBox(height: 30),
       ],
     );
   }
