@@ -1,6 +1,9 @@
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+
 import 'package:film_trek/bloc/movie_list_bloc.dart';
 import 'package:film_trek/models/movie.dart';
 import 'package:film_trek/ui/widgets/custom_image.dart';
+import 'package:film_trek/ui/widgets/rating_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -25,7 +28,27 @@ class MovieCard extends StatelessWidget {
                       .add(NavigateToMovieDetailsEvent(movie!));
                 }
               },
-              child: CustomImage(poster: poster),
+              child: Stack(
+                children: [
+                  CustomImage(poster: poster),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Align(
+                          alignment: Alignment.centerRight,
+                          child: RatingCard(rating: movie?.rating ?? 0.0)),
+                      Container(
+                          height: 40,
+                          color: Colors.blueGrey[800]!.withOpacity(0.9),
+                          alignment: Alignment.center,
+                          child: Text(
+                            movie?.title ?? "",
+                            textAlign: TextAlign.center,
+                          )),
+                    ],
+                  )
+                ],
+              ),
             ),
     );
   }

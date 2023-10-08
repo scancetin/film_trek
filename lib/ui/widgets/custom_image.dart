@@ -13,13 +13,6 @@ class CustomImage extends StatelessWidget {
         child: Text("Error"),
       ),
       loadingBuilder: (context, child, loadingProgress) {
-        // if (loadingProgress?.expectedTotalBytes !=
-        //     loadingProgress?.cumulativeBytesLoaded) {
-        //   return const Center(
-        //     child: CircularProgressIndicator(),
-        //   );
-        // }
-        // return child;
         if (loadingProgress == null) return child;
         return Center(
           child: CircularProgressIndicator(

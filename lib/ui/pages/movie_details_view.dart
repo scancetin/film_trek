@@ -22,9 +22,11 @@ class MovieDetailsView extends StatelessWidget {
                   children: [
                     _buildMovieDetailsAppBar(context),
                     _buildMovieDetails(state),
-                    MoviesListSection(
-                        movieResponse: state.similarMovies,
-                        listTitle: "Similar Movies"),
+                    state.similarMovies.movies.isNotEmpty
+                        ? MoviesListSection(
+                            movieResponse: state.similarMovies,
+                            listTitle: "Similar Movies")
+                        : Container(),
                   ],
                 );
               } else {
