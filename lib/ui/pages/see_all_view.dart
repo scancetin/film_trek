@@ -1,6 +1,5 @@
 import 'package:film_trek/bloc/movie_list_bloc.dart';
 import 'package:film_trek/ui/widgets/movie_card.dart';
-import 'package:film_trek/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -50,15 +49,6 @@ class SeeAllView extends StatelessWidget {
       leading: IconButton(
         onPressed: () => context.read<MovieListBloc>().add(GetMovieListEvent()),
         icon: const Icon(Icons.arrow_back_ios_new),
-      ),
-      trailing: IconButton(
-        onPressed: () {
-          // todo: favorite movies page
-        },
-        icon: const Icon(
-          Icons.favorite,
-          color: AppColors.favoriteColor,
-        ),
       ),
     );
   }

@@ -1,6 +1,5 @@
 import 'package:film_trek/bloc/movie_list_bloc.dart';
 import 'package:film_trek/ui/widgets/custom_image.dart';
-import 'package:film_trek/utils/constants.dart';
 import 'package:film_trek/ui/widgets/movies_list_section.dart';
 import 'package:film_trek/ui/widgets/rating_card.dart';
 import 'package:flutter/material.dart';
@@ -44,15 +43,6 @@ class MovieDetailsView extends StatelessWidget {
       leading: IconButton(
         onPressed: () => context.read<MovieListBloc>().add(GetMovieListEvent()),
         icon: const Icon(Icons.arrow_back_ios_new),
-      ),
-      trailing: IconButton(
-        onPressed: () {
-          // todo: favorite movies page
-        },
-        icon: const Icon(
-          Icons.favorite,
-          color: AppColors.favoriteColor,
-        ),
       ),
     );
   }
