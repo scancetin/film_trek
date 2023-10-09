@@ -2,7 +2,6 @@ import 'package:film_trek/bloc/movie_list_bloc.dart';
 import 'package:film_trek/ui/pages/splash_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'style/themes.dart';
 
 void main() {
   runApp(
@@ -20,7 +19,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(useMaterial3: true, colorScheme: darkColorScheme),
+      theme: ThemeData.dark(),
       title: 'Material App',
       home: const SplashView(),
     );

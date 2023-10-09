@@ -1,7 +1,6 @@
 import 'package:film_trek/bloc/movie_list_bloc.dart';
 import 'package:film_trek/models/movie.dart';
 import 'package:film_trek/models/movie_response.dart';
-import 'package:film_trek/style/themes.dart';
 import 'package:film_trek/ui/widgets/movie_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -33,10 +32,10 @@ class MoviesListSection extends StatelessWidget {
                         .add(NavigateToSeeAllEvent(movieResponse));
                   }
                 },
-                child: Text(
+                child: const Text(
                   "See All",
                   style: TextStyle(
-                    color: darkColorScheme.inversePrimary,
+                    color: Colors.purpleAccent,
                     fontSize: 15,
                   ),
                 ),
