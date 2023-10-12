@@ -1,3 +1,4 @@
+import 'package:film_trek/utils/constants.dart';
 import 'package:flutter/material.dart';
 
 class RatingCard extends StatelessWidget {
@@ -6,21 +7,25 @@ class RatingCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 70,
+    return FittedBox(
+      fit: BoxFit.fill,
       child: Card(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            const Icon(
-              Icons.star_rate_rounded,
-              color: Colors.orangeAccent,
-            ),
-            Text(
-              rating.toStringAsFixed(1),
-              style: const TextStyle(color: Colors.orangeAccent),
-            ),
-          ],
+        color: AppColors.softBlack,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 3),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              const Icon(
+                Icons.star_rate_rounded,
+                color: Colors.orangeAccent,
+              ),
+              Text(
+                rating.toStringAsFixed(1),
+                style: const TextStyle(color: Colors.orangeAccent),
+              ),
+            ],
+          ),
         ),
       ),
     );

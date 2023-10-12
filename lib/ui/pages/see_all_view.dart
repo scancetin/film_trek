@@ -25,11 +25,12 @@ class SeeAllView extends StatelessWidget {
                         crossAxisCount: 2,
                         childAspectRatio: 170 / 250,
                         children: List.generate(
-                            state.movies.movies.length,
-                            (index) => MovieCard(
-                                  movie: state.movies.movies[index],
-                                  poster: state.movies.movies[index].poster,
-                                )),
+                          state.movies.movies.length,
+                          (index) => MovieCard(
+                            movie: state.movies.movies[index],
+                            poster: state.movies.movies[index].poster,
+                          ),
+                        ),
                       ),
                     ),
                   ),

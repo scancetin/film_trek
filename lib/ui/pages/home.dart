@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:film_trek/bloc/movie_list_bloc.dart';
 import 'package:film_trek/ui/widgets/movie_card.dart';
 import 'package:film_trek/ui/widgets/movies_list_section.dart';
+import 'package:film_trek/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -25,7 +26,7 @@ class Home extends StatelessWidget {
                     _buildCategorySection(state),
                     MoviesListSection(
                       movieResponse: state.movies,
-                      listTitle: "Movies",
+                      listTitle: AppString.movieString,
                     ),
                   ],
                 ),
@@ -44,10 +45,16 @@ Widget _buildHomeAppBar() {
   return const Padding(
     padding: EdgeInsets.symmetric(vertical: 10),
     child: ListTile(
-      leading: CircleAvatar(child: Icon(Icons.movie_filter)),
+      leading: CircleAvatar(
+          backgroundColor: AppColors.blueAccent,
+          child: Icon(
+            Icons.movie_filter,
+            color: Colors.white,
+          )),
       title: Text(
-        "Film Trek",
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+        AppString.appTitle,
+        style: TextStyle(
+            fontWeight: FontWeight.bold, fontSize: AppSizes.largestFontSize),
       ),
     ),
   );
@@ -60,7 +67,7 @@ Widget _buildCustomSearchBar(BuildContext context) {
       padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
           const EdgeInsets.only(left: 16)),
       leading: const Icon(Icons.search),
-      hintText: "Search a title",
+      hintText: AppString.searchBar,
       hintStyle: MaterialStateProperty.all<TextStyle>(
           TextStyle(color: Theme.of(context).hintColor)),
       onSubmitted: (value) {
@@ -74,7 +81,7 @@ Widget _buildCustomCarousel(MovieListLoaded state) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 20),
     child: CarouselSlider.builder(
-      options: CarouselOptions(enlargeCenterPage: true, height: 190),
+      options: CarouselOptions(enlargeCenterPage: true),
       itemCount: 3,
       itemBuilder: (context, index, _) {
         return MovieCard(
@@ -86,23 +93,15 @@ Widget _buildCustomCarousel(MovieListLoaded state) {
 }
 
 Widget _buildCategorySection(MovieListLoaded state) {
-  final List<String> mockCategories = [
-    "Popular",
-    "Trending",
-    "Top Rated",
-    "In Theatres",
-    "Upcoming",
-  ];
-
   return Column(
     mainAxisAlignment: MainAxisAlignment.start,
     children: [
       Container(
-        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
         alignment: Alignment.centerLeft,
         child: const Text(
-          "Categories",
-          style: TextStyle(fontSize: 20),
+          AppString.catsString,
+          style: TextStyle(fontSize: AppSizes.largeFontSize),
         ),
       ),
       Container(
@@ -110,26 +109,34 @@ Widget _buildCategorySection(MovieListLoaded state) {
         padding: const EdgeInsets.only(left: 15),
         child: ListView.builder(
           scrollDirection: Axis.horizontal,
-          itemCount: mockCategories.length,
+          itemCount: AppString.cats.length,
           itemBuilder: (context, index) {
             return GestureDetector(
               onTap: () async {
                 context.read<MovieListBloc>().add(ChangeMovieListEvent(index));
               },
               child: Card(
+                color: state.categoryIndex == index
+                    ? AppColors.softBlack
+                    : AppColors.backgroundColor,
                 child: Container(
                   width: 100,
-                  color: state.categoryIndex == index
-                      ? Colors.amberAccent
-                      : Colors.pink,
                   alignment: Alignment.center,
-                  child: Text(mockCategories[index]),
+                  child: Text(
+                    AppString.cats[index],
+                    style: TextStyle(
+                      color: state.categoryIndex == index
+                          ? AppColors.blueAccent
+                          : Colors.white,
+                    ),
+                  ),
                 ),
               ),
             );
           },
         ),
       ),
+      const SizedBox(height: 20),
     ],
   );
 }

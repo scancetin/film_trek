@@ -2,6 +2,7 @@ import 'package:film_trek/bloc/movie_list_bloc.dart';
 import 'package:film_trek/ui/widgets/custom_image.dart';
 import 'package:film_trek/ui/widgets/movies_list_section.dart';
 import 'package:film_trek/ui/widgets/rating_card.dart';
+import 'package:film_trek/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -24,7 +25,7 @@ class MovieDetailsView extends StatelessWidget {
                     state.similarMovies.movies.isNotEmpty
                         ? MoviesListSection(
                             movieResponse: state.similarMovies,
-                            listTitle: "Similar Movies")
+                            listTitle: AppString.similarString)
                         : Container(),
                   ],
                 );
@@ -53,11 +54,13 @@ class MovieDetailsView extends StatelessWidget {
       child: Column(
         children: [
           Card(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0)),
             semanticContainer: true,
             clipBehavior: Clip.antiAliasWithSaveLayer,
             child: SizedBox(
-              height: 250 * 1.5,
-              width: 170 * 1.5,
+              height: AppSizes.posterScales[1] * 10,
+              width: AppSizes.posterScales[0] * 10,
               child: CustomImage(poster: state.movie.poster),
             ),
           ),
@@ -66,7 +69,9 @@ class MovieDetailsView extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 10),
             child: Text(
               state.movie.title,
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+              style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: AppSizes.largeFontSize),
               textAlign: TextAlign.center,
             ),
           ),
@@ -118,9 +123,12 @@ class MovieDetailsView extends StatelessWidget {
   Widget _buildMovieInfoWidget(String info, IconData icon) {
     return Row(
       children: [
-        Icon(icon),
+        Icon(icon, color: AppColors.darkText),
         const SizedBox(width: 3),
-        Text(info),
+        Text(
+          info,
+          style: const TextStyle(color: AppColors.darkText),
+        ),
       ],
     );
   }
